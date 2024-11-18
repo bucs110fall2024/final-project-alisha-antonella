@@ -5,6 +5,7 @@ def main():
     pygame.init()
     #Create an instance on your controller object
     #Call your mainloop
+    #controller = Controller()
     
     ###### NOTHING ELSE SHOULD GO IN main(), JUST THE ABOVE 3 LINES OF CODE ######
 
