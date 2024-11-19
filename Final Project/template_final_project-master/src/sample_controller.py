@@ -1,3 +1,11 @@
+from budgeting import Budgeting
+from cooking import Cooking
+from costumer import Costumer
+from home import Home
+from music import Music
+from player import Player
+from supplies import Supplies
+from upgrades import Upgrades 
 
 class Controller:
   
