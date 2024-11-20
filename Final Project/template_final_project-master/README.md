@@ -40,7 +40,16 @@ The concept for our game is a pizza cooking game in which the user is in charge 
 
 ### Classes
 
-- << You should have a list of each of your classes with a description >>
+- <<
+1. Budgeting- will count the money that has been earned, display the revenue, and predict how much money the   costumer will make in the future based off of their preformance
+2. Cooking- will display buttons for the player to select the dough, toppings, cook the pizza, and package it and give it to the costumer
+3. Costumer- will display an order at the top of the screen and the costumer will pay the player and give tip if the order is correct 
+4. Home- will display the homescreen which will include the name of the game and a start button
+5. Music-
+6. Player- will take the order, move cooking stations, and use the budget to calculate spendings
+7. Supplies- will display a button which will allow the player to buy more dough, toppings, and boxes
+8. Upgrades- will display a button which will allow the player to buy more toppings and a faster cooking time 
+>>
 
 ## ATP
 
