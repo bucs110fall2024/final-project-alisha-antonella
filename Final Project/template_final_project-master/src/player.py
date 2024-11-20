@@ -1,5 +1,6 @@
 import pygame
 
+<<<<<<< HEAD
 class Player:
     
     def __init__(self, x, y, img_file):
@@ -29,3 +30,16 @@ class Player:
         they can spend on supplies/upgrades
         """
     
+=======
+class Player(pyagem.sprite.Sprite):
+    
+    def __init__(self, name):
+        super().__init__()
+        
+        self.name
+        self.size = "small"
+        self.image = pygame.image.load("assets/(name).png")
+        self.rect = self.image.get_rect()
+        self.rect.x = 0
+        self.rect.y = 0  
+>>>>>>> b9499dfed023231edcd5c019245f8adf87772dd0
