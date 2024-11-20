@@ -1,8 +1,8 @@
 import pygame
 
-Class Player(pyagem.sprite.Sprite):
+class Player(pyagem.sprite.Sprite):
     
-    def __init__(self, name)
+    def __init__(self, name):
         super().__init__()
         
         self.name
