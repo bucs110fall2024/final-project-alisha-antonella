@@ -3,10 +3,10 @@ import random
 
 
 class Costumer:
-    PIZZA_COST=int(4)
-    TIP=int(3)
+    PIZZA_COST=4
+    TIP=3
     
-    def __init__(self, x, y, order_paper.jpg):
+    def __init__(self, x, y, order_paper.jpg, screen):
          """
          Initializes the costumer object
          args:
@@ -14,11 +14,20 @@ class Costumer:
         - y (int) - starting y coordinate
         - img_file : str - path to order_paper.jpg file
          """
+         self.x=x
+         self.y=y
+         self.screen=screen
+         self.image=pygame.image.load(order_paper)
+         self.order_text=""
+         self.revenue=0
+         
+    def display_order_image(self):
+         """
+         Displays the customer's order image
+         """
          current_time=0
          last_image_time=0
-         image=pygame.image.load("templat_final_project-master/assests/order_paper.jpg")
-         width, height=image.get_size()
-         screen.blit(image, (0,0))
+         self.screen.blit(self.image, (self.x, self.y))
          pygame.display.flip()
          
     
@@ -28,19 +37,19 @@ class Costumer:
         order from the menu list
         """
         order_list=["Toppings: Cheese", "Toppings: Pepperoni","Toppings: Pineapple"]
-        random_order=random.choice(order_list)
+        self.order_text=random.choice(order_list)
         pygame.font.init()
-        my_font=pygame.font.SysFont('comic sans')
+        my_font=pygame.font.SysFont('comic sans',24)
         text_surface=my_font.render(order_list, False, (0, 0, 0))
-        screen.blit(text_surface, (0,0))
+        self.screen.blit(text_surface, (self.x + 50, self.y + 50))
+        pygame.display.flip()
     
-    def review(self):
+    def pay(self):
         """
-        The costumer gives a review and gives a certain amount 
-        of tip based off of how well the player makes their order
+        The costumer pays and gives a tip if the order was correct
         """
-        if pizza=order_list:
-            revenue=PIZZA_COST+TIP
+        if pizza == self.order_text:
+            self.revenue+=self.PIZZA_COST+self.TIP
         else:
-            revenue=PIZZA_COST
-
+            self.revenue+=self.PIZZA_COST
+        return self.revenue
