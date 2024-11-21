@@ -23,7 +23,7 @@ class Cooking:
          self.bake_button = pygame.Rect(300, 100, self.BUTTON_WIDTH, self.BUTTON_HEIGHT)
          self.package_button = pygame.Rect(300, 200, self.BUTTON_WIDTH, self.BUTTON_HEIGHT)
 
-    def draw_button(self, rect, text):
+    def draw_cooking_button(self, rect, text):
         """
         draws a button with text
         Args:
@@ -35,7 +35,7 @@ class Cooking:
         text_rect = text_surface.get_rect(center=rect.center)
         self.screen.blit(text_surface, text_rect)
 
-    def draw_buttons(self):
+    def draw_cooking_buttons(self):
         """
         draws buttons on screen
         """
@@ -45,7 +45,7 @@ class Cooking:
         self.draw_button(self.bake_button, "Bake")
         self.draw_button(self.package_button, "Package")
 
-    def button_click(self, event):
+    def cooking_button_click(self, event):
         """
         event when button is clicked
         Args:
