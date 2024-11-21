@@ -21,7 +21,7 @@ class Supplies:
             "Buy Pepperoni": pygame.Rect(50, 400, self.BUTTON_WIDTH, self.BUTTON_HEIGHT),
         }
 
-    def draw_button(self, rect, text):
+    def draw_supplies_button(self, rect, text):
         """
         draws a button with text
         Args:
@@ -33,12 +33,12 @@ class Supplies:
         text_rect = text_surface.get_rect(center=rect.center)
         self.screen.blit(text_surface, text_rect)
 
-    def draw_buttons(self):
+    def draw_supplies_buttons(self):
         """
         draws buttons on screen
         """
         for topping, rect in self.toppings_buttons.items():
-            self.draw_button(rect, topping)
+            self.draw_supplies_button(rect, topping)
        
     def button_click(self, event):
         """
@@ -49,5 +49,5 @@ class Supplies:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  
             for topping, rect in self.toppings_buttons.items():
                 if rect.collidepoint(event.pos):
-                    print(f"{topping} button clicked!")
+                    print(f"{topping} bought!")
            
