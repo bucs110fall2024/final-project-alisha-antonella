@@ -1,9 +1,8 @@
 import pygame
 
-<<<<<<< HEAD
 class Player:
     
-    def __init__(self, x, y, img_file):
+    def __init__(self, x, y, img_file, budget):
          """
          Initializes the player object
          args:
@@ -11,35 +10,67 @@ class Player:
         - y (int) - starting y coordinate
         - img_file : str - path to ____ file
          """
-    
+        self.x = x
+        
+        self.y = y
+        
+        self.image = pygame.image.load(img_file) 
+        
+        self.rect = self.image.get_rect() 
+        
+        self.rect.topleft = (x, y) 
+        
+        self.order = None 
+        
+        self.budget = budget 
+        
     def takeorder(self)
         """
-        The player takes an order based on what
-        the customer wants
+        The player receives an order and goes
+        to each station based on the order 
         """
+         self.order = order
+         
+        print(f"Order received: {order.description}")
         
     def movestations(self)
         """
         The player moves from each station to 
         make the order 
         """
+        print(f"Starting to move between stations to fulfill the order...")
+        
+        for station in station_list:
+          
+            self.x, self.y = station.get_position() 
+            
+            self.rect.topleft = (self.x, self.y) 
+            
+            print(f"Moved to {station.name} at position {self.x}, {self.y}")
+           
     
     def usebudget(self)
         """
-        Player uses bduget to calculate how much
+        Player uses budget class to calculate how much
         they can spend on supplies/upgrades
         """
-    
-=======
-class Player(pyagem.sprite.Sprite):
-    
-    def __init__(self, name):
-        super().__init__()
+         if not self.budget:
+             
+            print("No budget available.")
+            
+            return
         
-        self.name
-        self.size = "small"
-        self.image = pygame.image.load("assets/(name).png")
-        self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = 0  
->>>>>>> b9499dfed023231edcd5c019245f8adf87772dd0
+        print("Checking available budget for items:")
+        
+        for item, cost in item_costs.items():
+            
+            if self.budget.can_afford(cost):
+                
+                self.budget.spend(cost)
+                
+                print(f"Bought {item} for {cost} units.")
+                
+            else:
+                
+                print(f"Cannot afford {item} (cost: {cost} units).")
+    
