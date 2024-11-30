@@ -1,0 +1,87 @@
+ATP EXERCISE
+
+# ######
+Test Case 1: Player Order Handling, Movement, and Budget Usage
+
+Test Description: Make sure that the player can successfully take an order, move through stations, and use the budget to purchase supplies.
+
+Test Steps:
+Initialize the Player object with starting coordinates
+Call the takeorder method and pass a mock order with the description "Make a pizza".
+Verify that the player's order attribute is set to the received order.
+Check the console output to ensure the order description is printed:
+"Order received: Make a pizza"
+Call the movestations method on the player object to make the player move between stations.
+Call the usebudget method on the player object to attempt purchasing supplies.
+After attempting purchases, check that the player's remaining budget is updated correctly.
+
+
+Expected Outcome: The player shoudl be able to take orders, make orders and use its budget
+
+# ###############
+Test Case 2: Budgeting System
+
+Test Description: Make sire that the Budgeting class correctly tracks and displays the user's money, calculates earned money, and predicts future earnings based on average earnings and time played.
+
+
+Test Steps:
+Initialize a Budgeting object with starting coordinates
+Call the countMoney method on the Budgeting object and add 50 units to the money.
+Verify that the money is updated correctly after each call.
+Set up a mock screen using pygame.Surface with size (800, 600) to simulate displaying on a screen.
+Call the displaysMoney method with the mock screen as the argument.
+Call the budgetPrediction method with an average earning of 10 units per time unit and a time played of 5 units.
+Verify that the predicted money is calculated correctly, based on the formula
+After all operations, check the value of the money attribute of the Budgeting object.
+
+
+Expected Outcome: The players money should be updated correct;y using the budgeting object,the displays money method should display the correct amount on the screen, and the budget prediction method should return the correct predicted money
+
+
+# ###############
+Test Case 3: Home Screen Display and Button Interaction
+
+Test Description: Make sure that the Home class correctly displays the home screen with title text, instructions, and a start button. The button should change color when hovered over, and clicking the button should start the game (simulated for the test case).
+
+
+Test Steps:
+Initialize a pygame screen with size (800, 600) to simulate the home screen.
+Create a Home object using the screen and font.
+Call the initial_text method on the Home object to display the home screen text.
+Verify that the title text "Welcome to Our Game" is displayed at the top center of the screen.
+Verify that the instructions text "Press the button to start!!" is displayed below the title.
+Simulate moving the mouse pointer over the button by setting the mouse position to coordinates inside the button's rectangle (e.g., (160, 260)).
+Call the start_button method.
+Simulate a click on the start button by checking for mouse click events at the button's rectangle position.
+Verify that the button responds to the click event 
+
+Expected Outcome: Home class should display the intial game screen, and handle button interaction
+# ###############
+
+Test Case 4: Upgrades Button Interactions
+
+Test Description: Make sure that the Upgrades class correctly draws the upgrade buttons for "Better Toppings" and "Faster Cooking," and that the buttons respond to mouse click events appropriately.
+
+Test Steps:
+Initialize a pygame screen with size (800, 600) to simulate the game screen.
+Create a pygame.event.Event object to simulate mouse click events.
+Initialize an Upgrades object, passing in the button and the screen.
+Call the draw_upgrade_buttons method on the Upgrades object.
+Verify that the buttons "Buy Better Toppings" and "Buy Faster Cooking" are drawn on the screen at the correct positions 
+Simulate a mouse click event on the "Buy Better Toppings" button by setting the mouse position to (150, 125) (which is within the better_toppings button) 
+
+Expected Outcome: Upgrades class displays the upgrade buttons and respodns to mouse click events properly 
+
+# ###############
+Test Case 5: Cooking Button Interactions
+
+Test Description: Make sure that the Cooking class correctly displays the cooking-related buttons (Dough, Toppings, Bake, Package), and that the buttons respond to mouse click events
+
+Test Steps:
+Initialize a pygame screen with size (800, 600) to simulate the game screen.
+Create a pygame.event.Event object to simulate mouse click events.
+Initialize a Cooking object, passing in the button and the screen.
+Call the draw_cooking_buttons method on the Cooking object.
+Verify that all buttons are drawn with the correct color
+
+Expected Outcome: Cooking class displays the cooking-related buttons and responds to mouse click events properly
