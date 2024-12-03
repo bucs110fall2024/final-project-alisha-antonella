@@ -40,7 +40,6 @@ class Controller:
         self.state = "menu"
 
     def mainloop(self):
-
         while True:
             if self.state == "menu":
                 self.menuloop()
@@ -61,12 +60,32 @@ class Controller:
                 if(False): self.state = "game"
             pygame.display.update()
   
-  def gameloop(self):
-      #event loop
+    def gameloop(self):
+        """
+        menu elements must be defined before the mainloop
+        """
+        while self.state == "game":  # one time through the loop is one frame (picture)
+            # check for events
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.state = "menu"
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_a:
+                        self.menuloop()
+                elif event.type == pygame.MOUSEMOTION:
+                    if self.button.rect.collidepoint(event.pos):
+                        self.button.highlight()
+                    else:
+                        self.button.color_default()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.button.rect.collidepoint(event.pos):
+                        self.reveal_hero()
+        
+            self.screen.blit(self.background, (0,0))
+            self.background.blit(self.button.image, self.button.rect)
 
-      #update data
-
-      #redraw
+            # update the screen
+            pygame.display.update()
     
   def gameoverloop(self):
       #event loop
