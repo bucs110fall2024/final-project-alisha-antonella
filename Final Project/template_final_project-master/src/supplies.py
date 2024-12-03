@@ -7,9 +7,10 @@ class Supplies:
     FONT_COLOR=(0,0,0)
     def __init__(self, button,screen):
          """
-         initializes the button object
-         args:
-        - 
+         Initializes the button object
+         Args:
+         - button(): The buy more toppings button 
+         - screen(pygame.Surface): Where the button is drawn 
          """
          self.button=button
          self.screen=screen
@@ -23,7 +24,7 @@ class Supplies:
 
     def draw_supplies_button(self, rect, text):
         """
-        draws a button with text
+        Draws a button with text
         Args:
         - rect (pygame.Rect): The rectangle for the button
         - text (str): The text displayed on the button
@@ -35,14 +36,14 @@ class Supplies:
 
     def draw_supplies_buttons(self):
         """
-        draws buttons on screen
+        Draws buttons on screen
         """
         for topping, rect in self.toppings_buttons.items():
             self.draw_supplies_button(rect, topping)
        
     def button_click(self, event):
         """
-        event when button is clicked
+        Event when button is clicked
         Args:
         - event (pygame.event.Event): The event to handle
         """

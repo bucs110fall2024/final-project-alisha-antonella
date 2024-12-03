@@ -1,18 +1,17 @@
 import pygame
 import random
 
-
 class Costumer:
     PIZZA_COST=4
     TIP=3
     
-    def __init__(self, x, y, order_paper.jpg, screen):
+    def __init__(self, x, y, order_paper, screen):
          """
          Initializes the costumer object
-         args:
-        - x (int) - starting x coordinate
-        - y (int) - starting y coordinate
-        - img_file : str - path to order_paper.jpg file
+         Args:
+        - x (int): starting x coordinate
+        - y (int): starting y coordinate
+        - order_paper (str): path to order_paper.jpg file
          """
          self.x=x
          self.y=y
@@ -46,9 +45,13 @@ class Costumer:
             self.screen.blit(text_surface, (self.x + 50, self.y + 50))
             pygame.display.flip()
     
-    def pay(self):
+    def pay(self, pizza):
         """
         The costumer pays and gives a tip if the order was correct
+        Args:
+        - pizza (str): The toppings 
+        Returns: 
+        -revenue (int): The revenue from the customer 
         """
         if pizza == self.order_text and not self.order_fulfilled:
             self.revenue+=self.PIZZA_COST+self.TIP

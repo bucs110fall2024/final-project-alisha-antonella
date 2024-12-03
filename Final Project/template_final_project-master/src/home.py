@@ -5,19 +5,19 @@ class Home:
          """
          Initializes home object
          """
-        self.screen = screen
+         self.screen = screen
         
-        self.font = font
+         self.font = font
         
-        self.button_rect = pygame.Rect(150, 250, 200, 50) 
+         self.button_rect = pygame.Rect(150, 250, 200, 50) 
         
-        self.button_color = (0, 255, 0)  
+         self.button_color = (0, 255, 0)  
         
-        self.button_hover_color = (0, 200, 0)
+         self.button_hover_color = (0, 200, 0)
         
-        self.button_text = "Start Game"
+         self.button_text = "Start Game"
 
-    def initial_text(self)
+    def initial_text(self):
         """
         args: none
         Displays homescreen text including name of game, etc.
@@ -39,7 +39,7 @@ class Home:
         
         
         
-    def start_button(self)
+    def start_button(self):
         """
         Creates a button object which if pressed starts the
         game and goes to a new screen 

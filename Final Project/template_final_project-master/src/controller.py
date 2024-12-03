@@ -1,6 +1,7 @@
 import pygame
 import pygame_menu
 from budgeting import Budgeting
+from button import Button 
 from cooking import Cooking
 from costumer import Costumer
 from home import Home
@@ -26,27 +27,11 @@ class Controller:
         # a label allows you to add text on the page
         self.menu.add.label("Press to Start", max_char=-1, font_size=14)
         #a button creates a button you can link to a method
-        self.menu.add.button(
-            'Press Me', 
-            self.start_game, 
-            align=pygame_menu.locals.ALIGN_CENTER
-        )
-        
-        self.button = Button(
-            x=50,
-            y=self.menu.get_rect().bottom + 10
-        )
-
+        self.menu.add.button('Press Me', self.start_game, align=pygame_menu.locals.ALIGN_CENTER)
+        self.button = Button(x=50, y=self.menu.get_rect().bottom + 10)
         self.state = "menu"
 
-    def mainloop(self):
-        while True:
-            if self.state == "menu":
-                self.menuloop()
-                #print(self.state)
-            elif self.state == "game":
-                self.gameloop()
-        
+
     def menuloop(self):
         while self.state == "menu":
             # you draw the menu on the screen like this
@@ -59,7 +44,8 @@ class Controller:
                 self.menu.draw(self.screen)
                 if(False): self.state = "game"
             pygame.display.update()
-  
+      
+        
     def gameloop(self):
         """
         menu elements must be defined before the mainloop
@@ -86,8 +72,18 @@ class Controller:
 
             # update the screen
             pygame.display.update()
+       
+            
+    def mainloop(self):
+        while True:
+            if self.state == "menu":
+                self.menuloop()
+                #print(self.state)
+            elif self.state == "game":
+                self.gameloop()
     
-  def gameoverloop(self):
+    
+    def gameoverloop(self):
       #event loop
 
       #update data

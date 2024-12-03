@@ -10,30 +10,30 @@ class Player:
         - y (int) - starting y coordinate
         - img_file : str - path to ____ file
          """
-        self.x = x
+         self.x = x
         
-        self.y = y
+         self.y = y
         
-        self.image = pygame.image.load(img_file) 
+         self.image = pygame.image.load(img_file) 
         
-        self.rect = self.image.get_rect() 
+         self.rect = self.image.get_rect() 
         
-        self.rect.topleft = (x, y) 
+         self.rect.topleft = (x, y) 
         
-        self.order = None 
+         self.order = None 
         
-        self.budget = budget 
+         self.budget = budget 
         
-    def takeorder(self)
+    def takeorder(self):
         """
         The player receives an order and goes
         to each station based on the order 
         """
-         self.order = order
+        self.order = order
          
         print(f"Order received: {order.description}")
         
-    def movestations(self)
+    def movestations(self):
         """
         The player moves from each station to 
         make the order 
@@ -49,12 +49,12 @@ class Player:
             print(f"Moved to {station.name} at position {self.x}, {self.y}")
            
     
-    def usebudget(self)
+    def usebudget(self):
         """
         Player uses budget class to calculate how much
         they can spend on supplies/upgrades
         """
-         if not self.budget:
+        if not self.budget:
              
             print("No budget available.")
             

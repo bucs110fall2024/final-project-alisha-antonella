@@ -7,9 +7,10 @@ class Upgrades:
      FONT_COLOR=(0,0,0)
      def __init__(self, button,screen):
          """
-         initializes the button object
-         args:
-        - 
+         Initializes the button object
+         Args:
+         - button(): The buy more toppings button 
+         - screen(pygame.Surface): Where the button is drawn 
          """
          self.button=button
          self.screen=screen
@@ -20,7 +21,7 @@ class Upgrades:
 
      def draw_upgrade_button(self, rect, text):
         """
-        draws a button with text
+        Draws a button with text
         Args:
         - rect (pygame.Rect): The rectangle for the button
         - text (str): The text displayed on the button
@@ -32,14 +33,14 @@ class Upgrades:
 
      def draw_upgrade_buttons(self):
         """
-        draws buttons on screen
+        Draws buttons on screen
         """
         self.draw_upgrade_button(self.better_toppings, "Buy Better Toppings")
         self.draw_upgrade_button(self.faster_cooking, "Buy Faster Cooking")
 
      def cooking_button_click(self, event):
         """
-        event when button is clicked
+        Event when button is clicked
         Args:
         - event (pygame.event.Event): The event to handle
         """

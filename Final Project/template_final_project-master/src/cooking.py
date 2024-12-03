@@ -8,8 +8,9 @@ class Cooking:
     def __init__(self, button,screen):
          """
          initializes the button object
-         args:
-        - 
+         Args:
+         - button(): The pizza button 
+         - screen(pygame.Surface): Where the button is drawn 
          """
          self.button=button
          self.screen=screen
@@ -61,4 +62,3 @@ class Cooking:
                 print("Bake button clicked!")
             if self.package_button.collidepoint(event.pos):
                 print("Package button clicked!")
-    
