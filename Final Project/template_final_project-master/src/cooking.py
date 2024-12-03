@@ -5,6 +5,7 @@ class Cooking:
     BUTTON_HEIGHT=50
     BUTTON_COLOR=(200,200,200)
     FONT_COLOR=(0,0,0)
+    
     def __init__(self, button,screen):
          """
          initializes the button object
@@ -23,8 +24,12 @@ class Cooking:
         }
          self.bake_button = pygame.Rect(300, 100, self.BUTTON_WIDTH, self.BUTTON_HEIGHT)
          self.package_button = pygame.Rect(300, 200, self.BUTTON_WIDTH, self.BUTTON_HEIGHT)
-
-    def draw_cooking_button(self, rect, text):
+         self.pizza_state = 'No Dough' 
+         self.toppings = ["Cheese", "Pineapple", "Pepperoni"] 
+         self.is_baking = False
+         
+         
+    def draw_button(self, rect, text):
         """
         draws a button with text
         Args:
@@ -36,6 +41,7 @@ class Cooking:
         text_rect = text_surface.get_rect(center=rect.center)
         self.screen.blit(text_surface, text_rect)
 
+
     def draw_cooking_buttons(self):
         """
         draws buttons on screen
@@ -46,19 +52,50 @@ class Cooking:
         self.draw_button(self.bake_button, "Bake")
         self.draw_button(self.package_button, "Package")
 
+
+    def update_game_state(self):
+        """
+        Updates the game based on the current pizza state
+        """
+        if self.pizza_state == 'Dough Added':
+            print("Dough added, now add toppings.")
+        elif self.pizza_state == 'Toppings Added':
+            print("Toppings added, now bake the pizza.")
+        elif self.pizza_state == 'Baked':
+            print("Pizza is baked, now package it.")
+        elif self.pizza_state == 'Packaged':
+            print("Pizza is packaged, ready to serve.")
+
+
     def cooking_button_click(self, event):
         """
-        event when button is clicked
-        Args:
-        - event (pygame.event.Event): The event to handle
+        Handles the cooking actions
         """
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  
-            if self.dough_button.collidepoint(event.pos):
-                print("Dough button clicked!")
+        if self.button.is_clicked(event):
+            if self.dough_button.collidepoint(event.pos) and self.pizza_state == 'No Dough':
+                self.pizza_state = 'Dough Added'
+                print("Dough added to the pizza.")
             for topping, rect in self.toppings_buttons.items():
-                if rect.collidepoint(event.pos):
-                    print(f"{topping} button clicked!")
-            if self.bake_button.collidepoint(event.pos):
-                print("Bake button clicked!")
-            if self.package_button.collidepoint(event.pos):
-                print("Package button clicked!")
+                if rect.collidepoint(event.pos) and self.pizza_state == 'Dough Added':
+                    if topping not in self.toppings:  # Add topping if it's not already added
+                        self.toppings.append(topping)
+                        print(f"{topping} added to the pizza.")
+            if self.bake_button.collidepoint(event.pos) and self.pizza_state == 'Toppings Added':
+                self.pizza_state = 'Baked'
+                self.is_baking = True
+                print("Pizza is baking...")
+            if self.package_button.collidepoint(event.pos) and self.pizza_state == 'Baked':
+                self.pizza_state = 'Packaged'
+                print("Pizza is packaged.")
+                self.is_baking = False
+
+
+    def draw(self):
+        """
+        Draw the current state of the cooking process and buttons
+        """
+        self.draw_cooking_buttons()
+        self.update_game_state()
+        font = pygame.font.SysFont('comic sans', 24)
+        state_text = font.render(f"Pizza State: {self.pizza_state}", True, (0, 0, 0))
+        self.screen.blit(state_text, (10, 10))

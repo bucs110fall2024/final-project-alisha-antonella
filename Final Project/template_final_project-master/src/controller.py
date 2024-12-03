@@ -15,7 +15,7 @@ class Controller:
     def __init__(self):
         # setup pygame data
         pygame.init()
-        self.screen = pygame.display.set_mode()
+        self.screen = pygame.display.set_mode((800,600))
         self.background = pygame.Surface(pygame.display.get_window_size())
         self.background.fill((150, 150, 250))
         
@@ -28,9 +28,22 @@ class Controller:
         self.menu.add.label("Press to Start", max_char=-1, font_size=14)
         #a button creates a button you can link to a method
         self.menu.add.button('Press Me', self.start_game, align=pygame_menu.locals.ALIGN_CENTER)
+        self.customer=None
+        self.cooking=None
+        self.supplies=None
+        self.upgrades=None
         self.button = Button(x=50, y=self.menu.get_rect().bottom + 10)
         self.state = "menu"
 
+    def start_game(self):
+        """
+        Initialize the game state when the start button is pressed
+        """
+        self.state = "game"
+        self.customer = Costumer(100, 100, "order_paper.jpg", self.screen)
+        self.cooking = Cooking(self.button, self.screen)
+        self.supplies = Supplies(self.button, self.screen)
+        self.upgrades = Upgrades(self.button, self.screen)
 
     def menuloop(self):
         while self.state == "menu":
@@ -42,7 +55,6 @@ class Controller:
                 # so if you want the menu in a specific place, 
                 # create a surface in the location to draw the menu on
                 self.menu.draw(self.screen)
-                if(False): self.state = "game"
             pygame.display.update()
       
         
@@ -55,20 +67,17 @@ class Controller:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.state = "menu"
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_a:
-                        self.menuloop()
-                elif event.type == pygame.MOUSEMOTION:
-                    if self.button.rect.collidepoint(event.pos):
-                        self.button.highlight()
-                    else:
-                        self.button.color_default()
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.button.rect.collidepoint(event.pos):
-                        self.reveal_hero()
+                    
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                   self.cooking.cooking_button_click(event)
+                   self.supplies.button_click(event)
+                   self.upgrades.button_click(event)
         
             self.screen.blit(self.background, (0,0))
-            self.background.blit(self.button.image, self.button.rect)
+            self.customer.display_order_image()  
+            self.cooking.draw_cooking_buttons()  
+            self.supplies.draw_supplies_buttons()  
+            self.upgrades.draw_upgrade_buttons()
 
             # update the screen
             pygame.display.update()
@@ -89,3 +98,4 @@ class Controller:
       #update data
 
       #redraw
+        pass

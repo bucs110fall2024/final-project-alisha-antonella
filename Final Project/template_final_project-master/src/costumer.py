@@ -16,7 +16,7 @@ class Costumer:
          self.x=x
          self.y=y
          self.screen=screen
-         self.image=pygame.image.load(order_paper)
+         self.image = pygame.image.load("assets/order_paper.jpg")
          self.order_text=""
          self.revenue=0
          self.order_time=pygame.time.get_ticks()
@@ -41,7 +41,7 @@ class Costumer:
             self.order_text=random.choice(order_list)
             pygame.font.init()
             my_font=pygame.font.SysFont('comic sans',24)
-            text_surface=my_font.render(order_list, False, (0, 0, 0))
+            text_surface=my_font.render(self.order_text, False, (0, 0, 0))
             self.screen.blit(text_surface, (self.x + 50, self.y + 50))
             pygame.display.flip()
     
@@ -53,7 +53,7 @@ class Costumer:
         Returns: 
         -revenue (int): The revenue from the customer 
         """
-        if pizza == self.order_text and not self.order_fulfilled:
+        if self.pay(pizza) == self.order_text and not self.order_fulfilled:
             self.revenue+=self.PIZZA_COST+self.TIP
             self.order_fulfilled=True
         elif not self.order_fulfilled:
