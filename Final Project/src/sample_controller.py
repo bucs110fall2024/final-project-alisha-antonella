@@ -1,5 +1,14 @@
 # from src.player import Player
 
+
+#class Controller: (backup of old code)
+ # WIDTH = 800
+  #HEIGHT = 600
+  
+  #def __init__(self, WIDTH, HEIGHT):
+     #pygame.init()
+     #screen = pygame.display.set_mode((WIDTH, HEIGHT))
+     
 class Controller:
   
   #Light BG = ?
@@ -14,7 +23,7 @@ class Controller:
     #self.clouds = []
     #self.enemires = []
     
-  def mainloop(self):
+   def mainloop(self):
     #select state loop
     
       #while True:
@@ -28,7 +37,7 @@ class Controller:
   
   ### below are some sample loop states ###
 
-  def menuloop(self):
+    def menuloop(self):
     
       #event loop
 
@@ -36,14 +45,14 @@ class Controller:
 
       #redraw
       
-  def gameloop(self):
+     def gameloop(self):
       #event loop
 
       #update data
 
       #redraw
     
-  def gameoverloop(self):
+      def gameoverloop(self):
       #event loop
 
       #update data
