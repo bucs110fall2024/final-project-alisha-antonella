@@ -16,7 +16,7 @@ class Costumer:
          self.x=x
          self.y=y
          self.screen=screen
-         self.image = pygame.image.load("assets/order_paper.jpg")
+         self.image=pygame.image.load("order_paper.jpg")
          self.order_text=""
          self.revenue=0
          self.order_time=pygame.time.get_ticks()
