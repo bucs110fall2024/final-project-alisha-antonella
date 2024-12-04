@@ -71,33 +71,40 @@ class Supplies:
         Update the game state by displaying available resources
         """
         font = pygame.font.SysFont('comic sans', 24)
-        y_offset = 30  # starting Y position
-        for topping, quantity in self.resources.items():
-            resource_text = font.render(f"{topping}: {quantity}", True, (0, 0, 0))
-            self.screen.blit(resource_text, (10, y_offset))
-            y_offset += 30
+        resource_text = font.render(f"Cheese: {self.resources['Cheese']} | Pineapple: {self.resources['Pineapple']} | Pepperoni: {self.resources['Pepperoni']}", True, (0, 0, 0))
+        self.screen.blit(resource_text, (310, 250))
+
        
-    
     def button_click(self, event):
         """
         Event when button is clicked
         Args:
         - event (pygame.event.Event): The event to handle
         """
-        if self.button.is_clicked(event):
-            if self.toppings_buttons["Buy Cheese"].collidepoint(event.pos):
-                self.resources["Cheese"] += 5
-                print("Bought 5 Cheese.")
-            elif self.toppings_buttons["Buy Pineapple"].collidepoint(event.pos):
-                self.resources["Pineapple"] += 5
-                print("Bought 5 Pineapple.")
-            elif self.toppings_buttons["Buy Pepperoni"].collidepoint(event.pos):
-                self.resources["Pepperoni"] += 5
-                print("Bought 5 Pepperoni.")
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  
+            for topping, rect in self.toppings_buttons.items():
+                if rect.collidepoint(event.pos):
+                    self.buy_topping(topping)
+    
+    
+    def buy_topping(self, topping):
+        """
+        Handles the purchase of a topping
+        """
+        if topping == "Buy Cheese":
+            self.resources["Cheese"] += 5
+            print("Bought 5 Cheese!")
+        elif topping == "Buy Pineapple":
+            self.resources["Pineapple"] += 5
+            print("Bought 5 Pineapple!")
+        elif topping == "Buy Pepperoni":
+            self.resources["Pepperoni"] += 5
+            print("Bought 5 Pepperoni!")
+
 
     def draw(self):
         """
-        Draw the button for buying supplies and display supply counts
+        Draws the supplies buttons and updates the game state
         """
         self.draw_supplies_buttons()
         self.update_game_state()

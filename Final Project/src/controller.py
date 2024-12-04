@@ -3,7 +3,7 @@ import pygame_menu
 from budgeting import Budgeting
 from button import Button 
 from cooking import Cooking
-from costumer import Costumer
+from customer import Costumer
 from music import Music
 from player import Player
 from supplies import Supplies
