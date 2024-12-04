@@ -20,26 +20,24 @@ class Supplies:
              "Pineapple": 20,
              "Pepperoni": 20,
          }
-         # Calculate position for buttons in top-right corner
          screen_width, screen_height = self.screen.get_size()
 
-        # Set a fixed x-coordinate for the right edge
          self.toppings_buttons = {
             "Buy Cheese": pygame.Rect(
-                screen_width - self.BUTTON_WIDTH - 20,  # 20 pixels padding from right edge
-                30,  # Start positioning buttons from 100px down
+                screen_width - self.BUTTON_WIDTH - 20,  
+                30,  
                 self.BUTTON_WIDTH,
                 self.BUTTON_HEIGHT
             ),
             "Buy Pineapple": pygame.Rect(
                 screen_width - self.BUTTON_WIDTH - 20,
-                90,  # 70 pixels below the "Buy Cheese" button
+                90,  
                 self.BUTTON_WIDTH,
                 self.BUTTON_HEIGHT
             ),
             "Buy Pepperoni": pygame.Rect(
                 screen_width - self.BUTTON_WIDTH - 20,
-                150,  # 70 pixels below the "Buy Pineapple" button
+                150, 
                 self.BUTTON_WIDTH,
                 self.BUTTON_HEIGHT
             ),

@@ -40,7 +40,7 @@ class Costumer:
         """
         if not self.order_fulfilled:
             order_list = ["Cheese", "Pepperoni", "Pineapple"]
-            self.order_text = f"Toppings: {random.choice(order_list)}"  # Add 'Toppings: ' before the random topping
+            self.order_text = f"Toppings: {random.choice(order_list)}" 
             self.display_order_image()
     
     
@@ -49,21 +49,17 @@ class Costumer:
         Renders the order text on top of the paper_order image
         """
         pygame.font.init()
-        my_font = pygame.font.SysFont('comic sans', 24)  # Define the font for the order text
+        my_font = pygame.font.SysFont('comic sans', 24)  
 
-        # Split the order_text if there are multiple toppings (e.g., Cheese, Pineapple)
-        order_lines = self.order_text.split(", ")  # Assuming toppings are separated by commas
+        
+        order_lines = self.order_text.split(", ")  
 
-        y_offset = self.y + 120  # Starting position for the first line of text
+        y_offset = self.y + 120  
         for line in order_lines:
-            # Render the line of text
-            text_surface = my_font.render(line, True, (0, 0, 0))  # Black color for text
-            text_rect = text_surface.get_rect(center=(self.x + 100, y_offset))  # Position the text over the image
+            text_surface = my_font.render(line, True, (0, 0, 0)) 
+            text_rect = text_surface.get_rect(center=(self.x + 100, y_offset))  
 
-            # Draw the text on the screen
             self.screen.blit(text_surface, text_rect)
-
-            # Increment the y_offset for the next line of text
             y_offset += 30
     
     def pay(self, pizza):

@@ -55,24 +55,20 @@ class Controller:
         """
         menu elements must be defined before the mainloop
         """
-        while self.state == "game":  # one time through the loop is one frame (picture)
-            # check for events
+        while self.state == "game":  
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.state = "menu"
                     
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    # Call the cooking button click method to update game state
                     self.cooking.cooking_button_click(event)
                     self.supplies.button_click(event)
 
-            # Update the game screen
             self.screen.fill((150, 150, 250))
             self.customer.display_order_image()  
             self.cooking.draw()  
             self.supplies.draw()
             self.supplies.update_game_state() 
-
             pygame.display.flip()
 
     def mainloop(self):
