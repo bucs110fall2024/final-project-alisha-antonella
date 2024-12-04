@@ -16,14 +16,33 @@ class Supplies:
          self.screen=screen
          self.font=pygame.font.Font(None,36)
          self.resources=initial_resources or {
-             "Cheese": 0,
-             "Pineapple": 0,
-             "Pepperoni": 0,
+             "Cheese": 20,
+             "Pineapple": 20,
+             "Pepperoni": 20,
          }
+         # Calculate position for buttons in top-right corner
+         screen_width, screen_height = self.screen.get_size()
+
+        # Set a fixed x-coordinate for the right edge
          self.toppings_buttons = {
-            "Buy Cheese": pygame.Rect(50, 200, self.BUTTON_WIDTH, self.BUTTON_HEIGHT),
-            "Buy Pineapple": pygame.Rect(50, 300, self.BUTTON_WIDTH, self.BUTTON_HEIGHT),
-            "Buy Pepperoni": pygame.Rect(50, 400, self.BUTTON_WIDTH, self.BUTTON_HEIGHT),
+            "Buy Cheese": pygame.Rect(
+                screen_width - self.BUTTON_WIDTH - 20,  # 20 pixels padding from right edge
+                30,  # Start positioning buttons from 100px down
+                self.BUTTON_WIDTH,
+                self.BUTTON_HEIGHT
+            ),
+            "Buy Pineapple": pygame.Rect(
+                screen_width - self.BUTTON_WIDTH - 20,
+                90,  # 70 pixels below the "Buy Cheese" button
+                self.BUTTON_WIDTH,
+                self.BUTTON_HEIGHT
+            ),
+            "Buy Pepperoni": pygame.Rect(
+                screen_width - self.BUTTON_WIDTH - 20,
+                150,  # 70 pixels below the "Buy Pineapple" button
+                self.BUTTON_WIDTH,
+                self.BUTTON_HEIGHT
+            ),
         }
 
     def draw_supplies_button(self, rect, text):
@@ -52,40 +71,33 @@ class Supplies:
         Update the game state by displaying available resources
         """
         font = pygame.font.SysFont('comic sans', 24)
-        resource_text = font.render(f"Cheese: {self.resources['Cheese']} | Pineapple: {self.resources['Pineapple']} | Pepperoni: {self.resources['Pepperoni']}", True, (0, 0, 0))
-        self.screen.blit(resource_text, (10, 10))
-
+        y_offset = 30  # starting Y position
+        for topping, quantity in self.resources.items():
+            resource_text = font.render(f"{topping}: {quantity}", True, (0, 0, 0))
+            self.screen.blit(resource_text, (10, y_offset))
+            y_offset += 30
        
+    
     def button_click(self, event):
         """
         Event when button is clicked
         Args:
         - event (pygame.event.Event): The event to handle
         """
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  
-            for topping, rect in self.toppings_buttons.items():
-                if rect.collidepoint(event.pos):
-                    self.buy_topping(topping)
-    
-    
-    def buy_topping(self, topping):
-        """
-        Handles the purchase of a topping
-        """
-        if topping == "Buy Cheese":
-            self.resources["Cheese"] += 1
-            print("Bought Cheese!")
-        elif topping == "Buy Pineapple":
-            self.resources["Pineapple"] += 1
-            print("Bought Pineapple!")
-        elif topping == "Buy Pepperoni":
-            self.resources["Pepperoni"] += 1
-            print("Bought Pepperoni!")
-
+        if self.button.is_clicked(event):
+            if self.toppings_buttons["Buy Cheese"].collidepoint(event.pos):
+                self.resources["Cheese"] += 5
+                print("Bought 5 Cheese.")
+            elif self.toppings_buttons["Buy Pineapple"].collidepoint(event.pos):
+                self.resources["Pineapple"] += 5
+                print("Bought 5 Pineapple.")
+            elif self.toppings_buttons["Buy Pepperoni"].collidepoint(event.pos):
+                self.resources["Pepperoni"] += 5
+                print("Bought 5 Pepperoni.")
 
     def draw(self):
         """
-        Draws the supplies buttons and updates the game state
+        Draw the button for buying supplies and display supply counts
         """
         self.draw_supplies_buttons()
         self.update_game_state()

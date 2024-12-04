@@ -7,30 +7,71 @@ class Cooking:
     FONT_COLOR=(0,0,0)
     
     def __init__(self, button,screen):
-         """
+        """
          initializes the button object
          Args:
          - button(): The pizza button 
          - screen(pygame.Surface): Where the button is drawn 
          """
-         self.button=button
-         self.screen=screen
-         self.font=pygame.font.Font(None,36)
-         self.dough_button = pygame.Rect(50, 100, self.BUTTON_WIDTH, self.BUTTON_HEIGHT)
-         self.toppings_buttons = {
-            "Cheese": pygame.Rect(50, 200, self.BUTTON_WIDTH, self.BUTTON_HEIGHT),
-            "Pineapple": pygame.Rect(50, 300, self.BUTTON_WIDTH, self.BUTTON_HEIGHT),
-            "Pepperoni": pygame.Rect(50, 400, self.BUTTON_WIDTH, self.BUTTON_HEIGHT),
+        self.button = button
+        self.screen = screen
+        self.font = pygame.font.Font(None, 36)
+        
+        # Screen size for dynamic positioning
+        screen_width, screen_height = self.screen.get_size()
+
+        # Position the bake and package buttons at bottom-right
+        self.bake_button = pygame.Rect(
+            screen_width - self.BUTTON_WIDTH - 20,  # 20 pixels padding from the right edge
+            screen_height - 150,                   # 150 pixels from the bottom
+            self.BUTTON_WIDTH,
+            self.BUTTON_HEIGHT
+        )
+        
+        self.package_button = pygame.Rect(
+            screen_width - self.BUTTON_WIDTH - 20,  # Same horizontal position as bake_button
+            screen_height - 80,                    # Positioned 10 pixels below the bake button
+            self.BUTTON_WIDTH,
+            self.BUTTON_HEIGHT
+        )
+        
+        # Topping buttons horizontally aligned in the bottom center
+        topping_button_y = screen_height - 250  # Adjust this to align with Bake and Package buttons
+        
+        self.toppings_buttons = {
+            "Cheese": pygame.Rect(
+                (screen_width - self.BUTTON_WIDTH * 3) // 2+200, topping_button_y + 60, self.BUTTON_WIDTH, self.BUTTON_HEIGHT
+            ),
+            "Pineapple": pygame.Rect(
+                (screen_width - self.BUTTON_WIDTH * 3) // 2+200, topping_button_y + 120, self.BUTTON_WIDTH, self.BUTTON_HEIGHT
+            ),
+            "Pepperoni": pygame.Rect(
+                (screen_width - self.BUTTON_WIDTH * 3) // 2+200, topping_button_y + 180, self.BUTTON_WIDTH, self.BUTTON_HEIGHT
+            ),
         }
-         self.bake_button = pygame.Rect(300, 100, self.BUTTON_WIDTH, self.BUTTON_HEIGHT)
-         self.package_button = pygame.Rect(300, 200, self.BUTTON_WIDTH, self.BUTTON_HEIGHT)
-         self.pizza_state = 'No Dough' 
-         self.toppings = ["Cheese", "Pineapple", "Pepperoni"] 
-         self.is_baking = False
-         
+        
+        # Dough button horizontally aligned with Pineapple button
+        self.dough_button = pygame.Rect(
+            (screen_width - self.BUTTON_WIDTH * 3) // 2-70, screen_height - self.BUTTON_HEIGHT -80 ,  # Same x-position as Pineapple
+            self.BUTTON_WIDTH,
+            self.BUTTON_HEIGHT
+        )
+        
+        self.pizza_state = 'No Dough'
+        self.toppings = []
+        self.is_baking = False
+        
+        self.topping_quantities = {
+            "Cheese": 20,
+            "Pineapple": 20,
+            "Pepperoni": 20
+        }
+        self.baking_duration=30
+    
          
     def draw_button(self, rect, text):
         """
+        
         draws a button with text
         Args:
         - rect (pygame.Rect): The rectangle for the button
@@ -43,59 +84,63 @@ class Cooking:
 
 
     def draw_cooking_buttons(self):
-        """
-        draws buttons on screen
-        """
         self.draw_button(self.dough_button, "Dough")
         for topping, rect in self.toppings_buttons.items():
             self.draw_button(rect, topping)
         self.draw_button(self.bake_button, "Bake")
         self.draw_button(self.package_button, "Package")
 
-
     def update_game_state(self):
-        """
-        Updates the game based on the current pizza state
-        """
-        if self.pizza_state == 'Dough Added':
-            print("Dough added, now add toppings.")
+        if self.pizza_state == 'No Dough':
+            print("Please add dough to start.")
+        elif self.pizza_state == 'Dough Added':
+            print("Dough added. Add toppings next.")
         elif self.pizza_state == 'Toppings Added':
-            print("Toppings added, now bake the pizza.")
+            print("Toppings added. Bake the pizza next.")
         elif self.pizza_state == 'Baked':
-            print("Pizza is baked, now package it.")
+            print("Pizza is baked. Now package it!")
         elif self.pizza_state == 'Packaged':
-            print("Pizza is packaged, ready to serve.")
-
+            print("Pizza is packaged and ready!")
 
     def cooking_button_click(self, event):
-        """
-        Handles the cooking actions
-        """
         if self.button.is_clicked(event):
             if self.dough_button.collidepoint(event.pos) and self.pizza_state == 'No Dough':
                 self.pizza_state = 'Dough Added'
                 print("Dough added to the pizza.")
             for topping, rect in self.toppings_buttons.items():
-                if rect.collidepoint(event.pos) and self.pizza_state == 'Dough Added':
-                    if topping not in self.toppings:  # Add topping if it's not already added
-                        self.toppings.append(topping)
-                        print(f"{topping} added to the pizza.")
+                if rect.collidepoint(event.pos) and self.pizza_state == 'Dough Added' and topping not in self.toppings:
+                    self.toppings.append(topping)
+                    print(f"{topping} added to the pizza.")
+                    if self.pizza_state == 'Dough Added' and len(self.toppings) > 0:
+                        self.pizza_state = 'Toppings Added'
+                        
             if self.bake_button.collidepoint(event.pos) and self.pizza_state == 'Toppings Added':
                 self.pizza_state = 'Baked'
                 self.is_baking = True
+                self.baking_start_time = pygame.time.get_ticks()  # Start the timer
                 print("Pizza is baking...")
+                
             if self.package_button.collidepoint(event.pos) and self.pizza_state == 'Baked':
                 self.pizza_state = 'Packaged'
                 print("Pizza is packaged.")
                 self.is_baking = False
-
+                self.toppings = []
 
     def draw(self):
-        """
-        Draw the current state of the cooking process and buttons
-        """
+        if self.is_baking:
+            elapsed_time = (pygame.time.get_ticks() - self.baking_start_time) / 1000
+            if elapsed_time >= self.baking_duration:
+                self.is_baking = False
+                print("Pizza is done!")
+                
         self.draw_cooking_buttons()
         self.update_game_state()
+
         font = pygame.font.SysFont('comic sans', 24)
         state_text = font.render(f"Pizza State: {self.pizza_state}", True, (0, 0, 0))
         self.screen.blit(state_text, (10, 10))
+
+        if self.is_baking:
+            remaining_time = max(0, self.baking_duration - (elapsed_time))
+            timer_text = font.render(f"Time Remaining: {int(remaining_time)}s", True, (255, 0, 0))
+            self.screen.blit(timer_text, (10, 40))

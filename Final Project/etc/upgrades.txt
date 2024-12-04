@@ -15,33 +15,29 @@ class Upgrades:
          self.font=pygame.font.Font(None,36)
          self.player=player
          self.upgrades = {
-            "Better Toppings": pygame.Rect(50, 100, self.BUTTON_WIDTH, self.BUTTON_HEIGHT),
             "Faster Cooking": pygame.Rect(50, 200, self.BUTTON_WIDTH, self.BUTTON_HEIGHT),
         }
          self.purchased_upgrades = {
-            "Better Toppings": False,
             "Faster Cooking": False
         }
        
        
-     def draw_button(self, rect, text):
+     def draw_button(self, surface, rect, text):
         """
         Draws a button with the given text on the screen
         """
-        pygame.draw.rect(self.screen, self.BUTTON_COLOR, rect)
-        text_surface = self.font.render(text, True, self.FONT_COLOR)
-        text_rect = text_surface.get_rect(center=rect.center)
-        self.screen.blit(text_surface, text_rect)
+        pygame.draw.rect(surface, self.BUTTON_COLOR, rect)
+        font = pygame.font.SysFont("Arial", 24)  # Create font
+        text_surface = font.render(text, True, (255, 255, 255))  # White text
+        text_rect = text_surface.get_rect(center=rect.center)  # Center text in button
+        surface.blit(text_surface, text_rect)  # Draw text on surface
 
-     def draw_upgrade_buttons(self):
+     def draw_upgrade_buttons(self, surface):
         """
         Draws the buttons for available upgrades
         """
-        y_offset = 100  
         for upgrade, rect in self.upgrades.items():
-            rect.y = y_offset  
-            self.draw_button(rect, upgrade) 
-            y_offset += self.BUTTON_HEIGHT + 10  
+            self.draw_button(surface, rect, upgrade) 
 
      def update_game_state(self):
         """
@@ -49,7 +45,6 @@ class Upgrades:
         """
         font = pygame.font.SysFont('comic sans', 24)
         upgrade_text = font.render(
-            f"Better Toppings: {'Yes' if self.purchased_upgrades['Better Toppings'] else 'No'} | "
             f"Faster Cooking: {'Yes' if self.purchased_upgrades['Faster Cooking'] else 'No'}", 
             True, (0, 0, 0))
         self.screen.blit(upgrade_text, (10, 10))
@@ -67,12 +62,8 @@ class Upgrades:
      def buy_upgrade(self, upgrade):
         """
         Handles the purchase of an upgrade
-        """
-        if upgrade == "Better Toppings" and not self.purchased_upgrades["Better Toppings"]:
-            self.purchased_upgrades["Better Toppings"] = True
-            print("Bought Better Toppings!")
-            self.player.increase_topping_effectiveness()  
-        elif upgrade == "Faster Cooking" and not self.purchased_upgrades["Faster Cooking"]:
+        """ 
+        if upgrade == "Faster Cooking" and not self.purchased_upgrades["Faster Cooking"]:
             self.purchased_upgrades["Faster Cooking"] = True
             print("Bought Faster Cooking!")
             self.player.increase_cooking_speed()  

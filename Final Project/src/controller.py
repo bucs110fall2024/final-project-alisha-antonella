@@ -4,11 +4,9 @@ from budgeting import Budgeting
 from button import Button 
 from cooking import Cooking
 from costumer import Costumer
-from home import Home
 from music import Music
 from player import Player
 from supplies import Supplies
-from upgrades import Upgrades 
 
 
 class Controller:
@@ -40,10 +38,9 @@ class Controller:
         Initialize the game state when the start button is pressed
         """
         self.state = "game"
-        self.customer = Costumer(100, 100, "order_paper.jpg", self.screen)
+        self.customer = Costumer(100, 100, "paper_order.jpg", self.screen)
         self.cooking = Cooking(self.button, self.screen)
         self.supplies = Supplies(self.button, self.screen)
-        self.upgrades = Upgrades(self.button, self.screen)
 
     def menuloop(self):
         while self.state == "menu":
@@ -55,7 +52,7 @@ class Controller:
                 # so if you want the menu in a specific place, 
                 # create a surface in the location to draw the menu on
                 self.menu.draw(self.screen)
-            pygame.display.update()
+                pygame.display.update()
       
         
     def gameloop(self):
@@ -68,19 +65,18 @@ class Controller:
                 if event.type == pygame.QUIT:
                     self.state = "menu"
                     
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                    self.cooking.cooking_button_click(event)
                    self.supplies.button_click(event)
-                   self.upgrades.button_click(event)
         
-            self.screen.blit(self.background, (0,0))
+            self.screen.fill((150, 150, 250))
             self.customer.display_order_image()  
-            self.cooking.draw_cooking_buttons()  
-            self.supplies.draw_supplies_buttons()  
-            self.upgrades.draw_upgrade_buttons()
-
+            self.cooking.draw()  
+            self.supplies.draw()
+            self.supplies.draw()
+            self.supplies.update_game_state() 
             # update the screen
-            pygame.display.update()
+            pygame.display.flip()
        
             
     def mainloop(self):

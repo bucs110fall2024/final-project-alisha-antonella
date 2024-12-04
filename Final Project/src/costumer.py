@@ -5,18 +5,19 @@ class Costumer:
     PIZZA_COST=4
     TIP=3
     
-    def __init__(self, x, y, order_paper, screen):
+    def __init__(self, x, y, paper_order, screen):
          """
          Initializes the costumer object
          Args:
         - x (int): starting x coordinate
         - y (int): starting y coordinate
-        - order_paper (str): path to order_paper.jpg file
+        - order_paper (str): path to paper_order.jpg file
          """
          self.x=x
          self.y=y
          self.screen=screen
-         self.image=pygame.image.load("order_paper.jpg")
+         self.image=pygame.image.load("paper_order.jpg")
+         self.image = pygame.transform.scale(self.image, (200, 300))
          self.order_text=""
          self.revenue=0
          self.order_time=pygame.time.get_ticks()
@@ -27,10 +28,11 @@ class Costumer:
          Displays the customer's order image
          """
          if not self.order_fulfilled:
-            self.screen.blit(self.image, (self.x, self.y))
-            pygame.display.flip()
-         
-    
+            self.screen.blit(self.image, (0, 0))
+            if self.order_text:
+                self.render_order_text()
+          
+
     def order(self):
         """
         The costumer orders based off a randomly selected
@@ -39,11 +41,18 @@ class Costumer:
         if not self.order_fulfilled:
             order_list=["Toppings: Cheese", "Toppings: Pepperoni","Toppings: Pineapple"]
             self.order_text=random.choice(order_list)
-            pygame.font.init()
-            my_font=pygame.font.SysFont('comic sans',24)
-            text_surface=my_font.render(self.order_text, False, (0, 0, 0))
-            self.screen.blit(text_surface, (self.x + 50, self.y + 50))
-            pygame.display.flip()
+            self.display_order_image()
+    
+    
+    def render_order_text(self):
+        """
+        Renders the order text on top of the `paper_order` image
+        """
+        pygame.font.init()
+        my_font = pygame.font.SysFont('comic sans', 24)
+        text_surface = my_font.render(self.order_text, True, (0, 0, 0))
+        text_rect = text_surface.get_rect(center=(self.x + 100, self.y + 150))  
+        self.screen.blit(text_surface, text_rect)
     
     def pay(self, pizza):
         """
@@ -53,10 +62,10 @@ class Costumer:
         Returns: 
         -revenue (int): The revenue from the customer 
         """
-        if self.pay(pizza) == self.order_text and not self.order_fulfilled:
-            self.revenue+=self.PIZZA_COST+self.TIP
-            self.order_fulfilled=True
+        if pizza == self.order_text and not self.order_fulfilled:
+             self.revenue += self.PIZZA_COST + self.TIP
+             self.order_fulfilled = True
         elif not self.order_fulfilled:
-            self.revenue+=self.PIZZA_COST
-            self.order_fulfilled=True
+             self.revenue += self.PIZZA_COST
+             self.order_fulfilled = True
         return self.revenue
