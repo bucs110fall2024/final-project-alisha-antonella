@@ -2,7 +2,7 @@ import pygame
 
 class Music:
     
-     def __init__(self, music_file):
+    def __init__(self, music_file):
         """
         Initializes the Music class and starts playing the background music.
         

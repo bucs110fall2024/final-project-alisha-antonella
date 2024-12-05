@@ -17,8 +17,7 @@ class Budgeting:
         
         self.color = (0, 255, 0) 
          
-       
-        
+         
     def countMoney(self, amount)
         """
         Calculates and keeps track of the money earned by user
