@@ -1,4 +1,5 @@
 import pygame
+import random
 from budgeting import Budgeting
 from cooking import Cooking
 from costumer import Costumer
@@ -15,7 +16,7 @@ class Controller:
   def __init__(self, WIDTH, HEIGHT):
      pygame.init()
      screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    
+
   def mainloop(self):
     #select state loop
     
