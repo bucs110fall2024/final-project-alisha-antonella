@@ -1,3 +1,4 @@
+
 import pygame
 
 class Cooking:
@@ -28,9 +29,9 @@ class Cooking:
             self.BUTTON_WIDTH,
             self.BUTTON_HEIGHT
         )
-
+        
         topping_button_y = screen_height - 250  
-
+        
         self.toppings_buttons = {
             "Cheese": pygame.Rect(
                 (screen_width - self.BUTTON_WIDTH * 3) // 2 + 200, topping_button_y + 60, self.BUTTON_WIDTH, self.BUTTON_HEIGHT
@@ -96,45 +97,35 @@ class Cooking:
                 self.dough_added_message_printed = True  
         elif self.pizza_state == 'Toppings Added':
             print("Toppings added. Bake the pizza next.")
-            
-            
+
+
     def cooking_button_click(self, event):
         """
         Handles the button clicks and updates pizza state accordingly.
         """
-    # Check if the event is a mouse button down event
-        if event.type == pygame.MOUSEBUTTONDOWN:
-         Get the position of the mouse click
-            mouse_pos = event.pos
-        
-        # Check if the dough button is clicked and the pizza state is 'No Dough'
-            if self.dough_button.collidepoint(mouse_pos) and self.pizza_state == 'No Dough':
-                 self.pizza_state = 'Dough Added'
-                 print("Dough added to the pizza.")
-        
-            # Handle topping button clicks
-            for topping, rect in self.toppings_buttons.items():
-                if rect.collidepoint(mouse_pos) and self.pizza_state == 'Dough Added' and topping not in self.toppings:
-                    if self.topping_quantities[topping] > 0:
-                        self.toppings.append(topping)
-                        elf.topping_quantities[topping] -= 1
-                        print(f"{topping} added to the pizza.")
-                    else:
-                        print(f"No more {topping} available.")
-        
-        # Check if the bake button is clicked
-        if self.bake_button.collidepoint(mouse_pos):
+        if self.dough_button.collidepoint(event.pos) and self.pizza_state == 'No Dough':
+            self.pizza_state = 'Dough Added'
+            print("Dough added to the pizza.")
+    
+        for topping, rect in self.toppings_buttons.items():
+            if rect.collidepoint(event.pos) and self.pizza_state == 'Dough Added' and topping not in self.toppings:
+                if self.topping_quantities[topping] > 0:
+                    self.toppings.append(topping)
+                    self.topping_quantities[topping] -= 1
+                    print(f"{topping} added to the pizza.")
+                else:
+                    print(f"No more {topping} available.")
+    
+        if self.bake_button.collidepoint(event.pos):
             self.pizza_state = 'Baked'
             print("Pizza is baking...")
-        
-        # Check if the package button is clicked and the pizza state is 'Baked'
-        if self.package_button.collidepoint(mouse_pos) and self.pizza_state == 'Baked':
-            self.pizza_state = 'Packaged'
-            self.toppings = []  # Clear toppings list as the pizza is packaged
-            print("Pizza is packaged!")
-        else:
-            print(f"Unexpected event type: {event.type}")
             
+        if self.package_button.collidepoint(event.pos) and self.pizza_state == 'Baked':
+            self.pizza_state = 'Packaged'
+
+            self.toppings = [] 
+            print("Pizza is packaged!")
+
     def draw(self):
         """
         Draws the cooking state and buttons.

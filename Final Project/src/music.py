@@ -35,3 +35,4 @@ class Music:
         pygame.mixer.music.stop()
         
         print("Music stopped.")
+        

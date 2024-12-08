@@ -42,7 +42,7 @@ class Supplies:
                 self.BUTTON_HEIGHT
             ),
         }
-
+         
     def draw_supplies_button(self, rect, text):
         """
         Draws a button with text
@@ -63,7 +63,6 @@ class Supplies:
         for topping, rect in self.toppings_buttons.items():
             self.draw_supplies_button(rect, topping)
        
-       
     def update_game_state(self):
         """
         Update the game state by displaying available resources
@@ -83,7 +82,6 @@ class Supplies:
             for topping, rect in self.toppings_buttons.items():
                 if rect.collidepoint(event.pos):
                     self.buy_topping(topping)
-    
     
     def buy_topping(self, topping):
         """
