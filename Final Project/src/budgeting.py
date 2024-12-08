@@ -4,28 +4,28 @@ class Budgeting:
     def __init__(self, x, y):
          """
          Initializes the budgeting object/item on screen
-         Args: x (int) - starting x coordinate
+         args: x (int) - starting x coordinate
          y (int) - starting y coordinate
          """
-         self.x = x
+        self.x = x
         
-         self.y = y
+        self.y = y
         
-         self.money = 0 
+        self.money = 0 
         
-         self.font = pygame.font.SysFont("Arial", 24) 
+        self.font = pygame.font.SysFont("Arial", 24) 
         
-         self.color = (0, 255, 0) 
+        self.color = (0, 255, 0) 
          
          
-    def countMoney(self, amount):
+    def countMoney(self, amount)
         """
         Calculates and keeps track of the money earned by user
         """
         
         self.money += amount
          
-    def displaysMoney(self, screen):
+    def displaysMoney(self, screen)
         """
         Displays the current budget which the user 
         has, in order to buy supplies etc. 
@@ -37,7 +37,7 @@ class Budgeting:
         screen.blit(text_surface, (self.x, self.y))  
     
     
-    def budgetPrediction(self, average_earnings, time_played):
+    def budgetPrediction(self, average_earnings, time_played)
         """
         Incorporate a feature in which based on the 
         users usual earnings it can predict how much
