@@ -1,7 +1,7 @@
 import pygame
 import random
 
-class Costumer:
+class Customer:
     PIZZA_COST=4
     TIP=3
     
@@ -9,19 +9,21 @@ class Costumer:
          """
          Initializes the costumer object
          Args:
-        - x (int): starting x coordinate
-        - y (int): starting y coordinate
+        - x (int): The x-coordinate of the customer.
+        - y (int): The y-coordinate of the customer.
         - order_paper (str): path to paper_order.jpg file
          """
-         self.x=x
-         self.y=y
+         self.x = x
+         self.y = y
          self.screen=screen
          self.image=pygame.image.load("paper_order.jpg")
-         self.image = pygame.transform.scale(self.image, (200, 300))
+         self.image = pygame.transform.scale(self.image, (266, 300))
          self.order_text=""
          self.revenue=0
-         self.order_time=pygame.time.get_ticks()
          self.order_fulfilled=False
+         self.font = pygame.font.SysFont('comic sans', 24)
+         self.order_list = ["Cheese", "Pepperoni", "Pineapple"]
+         self.selected_topping = random.choice(self.order_list)
          
     def display_order_image(self):
          """
@@ -31,36 +33,21 @@ class Costumer:
             self.screen.blit(self.image, (0, 0))
             if self.order_text:
                 self.render_order_text()
-          
-
-    def order(self):
+     
+    def update_order(self):
         """
-        The costumer orders based off a randomly selected
-        order from the menu list
+        Updates the customer's topping order to a new random topping.
         """
-        if not self.order_fulfilled:
-            order_list = ["Cheese", "Pepperoni", "Pineapple"]
-            self.order_text = f"Toppings: {random.choice(order_list)}" 
-            self.display_order_image()
-    
-    
-    def render_order_text(self):
+        self.selected_topping = random.choice(self.order_list)
+        print(f"New order: {self.selected_topping}")
+             
+    def display_order_text(self):
         """
         Renders the order text on top of the paper_order image
         """
-        pygame.font.init()
-        my_font = pygame.font.SysFont('comic sans', 24)  
-
-        
-        order_lines = self.order_text.split(", ")  
-
-        y_offset = self.y + 120  
-        for line in order_lines:
-            text_surface = my_font.render(line, True, (0, 0, 0)) 
-            text_rect = text_surface.get_rect(center=(self.x + 100, y_offset))  
-
-            self.screen.blit(text_surface, text_rect)
-            y_offset += 30
+        order_text = self.font.render(f"Toppings: {self.selected_topping}", True, (0, 0, 0))
+        self.screen.blit(order_text, (10, 90))
+    
     
     def pay(self, pizza):
         """

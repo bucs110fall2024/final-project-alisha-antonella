@@ -6,12 +6,13 @@ class Cooking:
     BUTTON_COLOR = (200, 200, 200)
     FONT_COLOR = (0, 0, 0)
 
-    def __init__(self, button, screen, initial_resources=None):
+    def __init__(self, button, screen, customer, initial_resources=None):
         """
         Initializes the cooking system.
         """
         self.button = button
         self.screen = screen
+        self.customer=customer
         self.font = pygame.font.Font(None, 36)
         screen_width, screen_height = self.screen.get_size()
 
@@ -181,6 +182,7 @@ class Cooking:
             self.pizza_state = 'Packaged'
             self.toppings = [] 
             print("Pizza is packaged!")
+            self.customer.update_order()
             self.reset()  
         
 #/////////
@@ -237,7 +239,7 @@ class Cooking:
         
         font = pygame.font.SysFont('comic sans', 24)
         state_text = font.render(f"Pizza State: {self.pizza_state}", True, (0, 0, 0))
-        self.screen.blit(state_text, (10, 10))
+        self.screen.blit(state_text, (10, 30))
         
         if self.pizza_state == 'Dough Added':
             self.screen.blit(self.dough, (250, 4))

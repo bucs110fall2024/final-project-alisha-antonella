@@ -3,7 +3,7 @@ import pygame_menu
 from budgeting import Budgeting
 from button import Button
 from cooking import Cooking
-from customer import Costumer
+from customer import Customer
 from music import Music
 from player import Player
 
@@ -42,8 +42,8 @@ class Controller:
         """
         
         self.state = "game"
-        self.customer = Costumer(100, 100, "paper_order.jpg", self.screen)
-        self.cooking = Cooking(self.button, self.screen)
+        self.customer = Customer(100, 100, "paper_order.jpg", self.screen)
+        self.cooking = Cooking(self.button, self.screen, self.customer)
         self.player = Player(400, 300, "player_image2.jpg", budget=100, scale=(150,150))  
         
         
@@ -88,11 +88,10 @@ class Controller:
             self.screen.fill((150, 150, 250))
             self.customer.display_order_image()  
             self.cooking.draw()  
-            self.cooking.draw()
             self.screen.blit(self.player.image, self.player.rect)  
-            self.cooking.update_game_state() 
+            self.cooking.update_game_state()
+            self.customer.display_order_text()
             pygame.display.flip()
-            
             clock.tick(60)
 
     def mainloop(self):
