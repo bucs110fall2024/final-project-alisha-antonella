@@ -18,13 +18,14 @@ class Controller:
         
         # setup menu(s) for the loop
         width, height = pygame.display.get_window_size()
-        
-        self.menu = pygame_menu.Menu("My Pizza Restaurant", width-20, height/2, position=(10,10))
+        self.menu = pygame_menu.Menu("My Pizza Restaurant", width-20, height/2, position=(10,10), theme=pygame_menu.themes.THEME_BLUE)
 
         # a label allows you to add text on the page
         self.menu.add.label("Press to Start", max_char=-1, font_size=14)
+        
         # a button creates a button you can link to a method
-        self.menu.add.button('Press Me', self.start_game, align=pygame_menu.locals.ALIGN_CENTER)
+        self.menu.add.button('Start', self.start_game, align=pygame_menu.locals.ALIGN_CENTER)
+        self.menu.add.button("Quit", pygame_menu.events.EXIT)
         self.customer = None
         self.cooking = None
         self.supplies = None
