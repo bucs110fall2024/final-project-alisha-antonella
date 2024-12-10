@@ -2,7 +2,7 @@ import pygame
 
 class Player:
     
-    def __init__(self, x, y, img_file, budget):
+    def __init__(self, x, y, img_file, budget, scale=(150, 150)):
          """
          Initializes the player object
          args:
@@ -15,9 +15,11 @@ class Player:
          self.y = y
         
          self.image = pygame.image.load(img_file) 
+         
+         self.image = pygame.transform.scale(self.image, scale) 
         
          self.rect = self.image.get_rect() 
-        
+    
          self.rect.topleft = (x, y) 
         
          self.order = None 
