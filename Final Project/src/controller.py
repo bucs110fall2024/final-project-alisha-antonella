@@ -6,7 +6,6 @@ from cooking import Cooking
 from customer import Costumer
 from music import Music
 from player import Player
-from supplies import Supplies
 
 class Controller:
     def __init__(self):
@@ -40,7 +39,7 @@ class Controller:
         self.state = "game"
         self.customer = Costumer(100, 100, "paper_order.jpg", self.screen)
         self.cooking = Cooking(self.button, self.screen)
-        self.supplies = Supplies(self.button, self.screen)
+        
 
     def menuloop(self):
         while self.state == "menu":
@@ -63,13 +62,13 @@ class Controller:
                     
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     self.cooking.cooking_button_click(event, self.screen)
-                    self.supplies.button_click(event)
+                    self.cooking.button_click(event)
 
             self.screen.fill((150, 150, 250))
             self.customer.display_order_image()  
             self.cooking.draw()  
-            self.supplies.draw()
-            self.supplies.update_game_state() 
+            self.cooking.draw()
+            self.cooking.update_game_state() 
             pygame.display.flip()
 
     def mainloop(self):

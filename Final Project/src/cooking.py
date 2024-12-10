@@ -6,7 +6,7 @@ class Cooking:
     BUTTON_COLOR = (200, 200, 200)
     FONT_COLOR = (0, 0, 0)
 
-    def __init__(self, button, screen):
+    def __init__(self, button, screen, initial_resources=None):
         """
         Initializes the cooking system.
         """
@@ -42,6 +42,27 @@ class Cooking:
                 (screen_width - self.BUTTON_WIDTH * 3) // 2 + 200, topping_button_y + 180, self.BUTTON_WIDTH, self.BUTTON_HEIGHT
             ),
         }
+         
+        self.supply_buttons={
+             "Buy Cheese": pygame.Rect(
+                screen_width - self.BUTTON_WIDTH - 20,  
+                30,  
+                self.BUTTON_WIDTH,
+                self.BUTTON_HEIGHT
+            ),
+            "Buy Pineapple": pygame.Rect(
+                screen_width - self.BUTTON_WIDTH - 20,
+                90,  
+                self.BUTTON_WIDTH,
+                self.BUTTON_HEIGHT
+            ),
+            "Buy Pepperoni": pygame.Rect(
+                screen_width - self.BUTTON_WIDTH - 20,
+                150, 
+                self.BUTTON_WIDTH,
+                self.BUTTON_HEIGHT
+            ),
+        }
 
         self.dough_button = pygame.Rect(
             (screen_width - self.BUTTON_WIDTH * 3) // 2 - 70, screen_height - self.BUTTON_HEIGHT - 80,
@@ -49,14 +70,21 @@ class Cooking:
             self.BUTTON_HEIGHT
         )
 
-        self.pizza_state = 'No Dough'
-        self.toppings = []
-        self.is_baking = False
         self.topping_quantities = {
             "Cheese": 20,
             "Pineapple": 20,
             "Pepperoni": 20
         }
+        
+             
+        self.pizza_state = 'No Dough'
+        self.toppings = []
+        self.is_baking = False
+        self.dough_message_printed = False
+        self.dough_added_message_printed = False  
+        self.baking_message_printed = False
+        self.packaged_message_printed = False
+           
         self.dough=pygame.image.load("dough.png")
         self.dough = pygame.transform.scale(self.dough, (300, 300))
         
@@ -80,12 +108,7 @@ class Cooking:
         
         self.pizza_box=pygame.image.load("pizza_box.png")
         self.pizza_box = pygame.transform.scale(self.pizza_box, (240, 240))
-        
-        self.baking_duration = 30
-        self.dough_message_printed = False
-        self.dough_added_message_printed = False  
-        self.baking_message_printed = False
-        self.packaged_message_printed = False
+
 
     def draw_button(self, rect, text):
         """
@@ -102,7 +125,8 @@ class Cooking:
         """
         self.draw_button(self.dough_button, "Dough")
         for topping, rect in self.toppings_buttons.items():
-            self.draw_button(rect, topping)
+            if 'Buy' not in topping:
+                self.draw_button(rect, topping)
         self.draw_button(self.bake_button, "Bake")
         self.draw_button(self.package_button, "Package")
         
@@ -140,12 +164,12 @@ class Cooking:
             print("Dough added to the pizza.")
     
         for topping, rect in self.toppings_buttons.items():
-            if rect.collidepoint(event.pos) and self.pizza_state == 'Dough Added' and topping not in self.toppings:
+            if rect.collidepoint(event.pos) and self.pizza_state in ['Dough Added', 'Toppings Added'] and topping not in self.toppings:
                 if self.topping_quantities[topping] > 0:
                     self.pizza_state = 'Toppings Added'
                     self.toppings.append(topping)
-                    self.topping_quantities[topping] -= 1
-                    print(f"{topping} added to the pizza.")
+                    self.topping_quantities[topping] -= 1 
+                    print(f"{topping} added to the pizza. Remaining: {self.topping_quantities[topping]}")
                 else:
                     print(f"No more {topping} available.")
     
@@ -157,13 +181,58 @@ class Cooking:
             self.pizza_state = 'Packaged'
             self.toppings = [] 
             print("Pizza is packaged!")
-            self.reset()
+            self.reset()  
+        
+#/////////
+    def draw_supplies_button(self):
+        """
+        Draws a button with text
+        Args:
+        - rect (pygame.Rect): The rectangle for the button
+        - text (str): The text displayed on the button
+        """
+        for topping, rect in self.supply_buttons.items():
+            self.draw_button(rect, topping)
+       
+    def update_game_state(self):
+        """
+        Update the game state by displaying available resources
+        """
+        font = pygame.font.SysFont('comic sans', 24)
+        resource_text = font.render(f"Cheese: {self.topping_quantities['Cheese']} | Pineapple: {self.topping_quantities['Pineapple']} | Pepperoni: {self.topping_quantities['Pepperoni']}", True, (0, 0, 0))
+        self.screen.blit(resource_text, (310, 250))
 
+    def button_click(self, event):
+        """
+        Event when button is clicked
+        Args:
+        - event (pygame.event.Event): The event to handle
+        """
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  
+            for topping, rect in self.supply_buttons.items():
+                if rect.collidepoint(event.pos):
+                    self.buy_topping(topping)
+    
+    def buy_topping(self, topping):
+        """
+        Handles the purchase of a topping
+        """
+        if topping == "Buy Cheese":
+            self.topping_quantities["Cheese"] += 5
+            print("Bought 5 Cheese!")
+        elif topping == "Buy Pineapple":
+            self.topping_quantities["Pineapple"] += 5
+            print("Bought 5 Pineapple!")
+        elif topping == "Buy Pepperoni":
+            self.topping_quantities["Pepperoni"] += 5
+            print("Bought 5 Pepperoni!")
+            
     def draw(self):
         """
         Draws the cooking state and buttons.
         """     
-        self.draw_cooking_buttons()  
+        self.draw_cooking_buttons() 
+        self.draw_supplies_button() 
         self.update_game_state() 
         
         font = pygame.font.SysFont('comic sans', 24)
@@ -190,4 +259,3 @@ class Cooking:
 
         if self.pizza_state =="No Dough":
             pass
-    
