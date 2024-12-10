@@ -62,7 +62,7 @@ class Controller:
                     self.state = "menu"
                     
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    self.cooking.cooking_button_click(event)
+                    self.cooking.cooking_button_click(event, self.screen)
                     self.supplies.button_click(event)
 
             self.screen.fill((150, 150, 250))

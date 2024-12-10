@@ -1,4 +1,3 @@
-
 import pygame
 
 class Cooking:
@@ -58,6 +57,30 @@ class Cooking:
             "Pineapple": 20,
             "Pepperoni": 20
         }
+        self.dough=pygame.image.load("dough.png")
+        self.dough = pygame.transform.scale(self.dough, (300, 300))
+        
+        self.cheese_pizza_raw=pygame.image.load("cheese_pizza raw.png")
+        self.cheese_pizza_raw = pygame.transform.scale(self.cheese_pizza_raw, (300, 300))
+       
+        self.pineapple_pizza_raw=pygame.image.load("pineapple_pizza_raw.png")
+        self.pineapple_pizza_raw = pygame.transform.scale(self.pineapple_pizza_raw, (300, 300))
+       
+        self.pepperoni_pizza_raw=pygame.image.load("pepperoni_pizza_raw.png")
+        self.pepperoni_pizza_raw = pygame.transform.scale(self.pepperoni_pizza_raw, (300, 300))
+        
+        self.cheese_pizza_cooked=pygame.image.load("cheese_pizza_cooked.png")
+        self.cheese_pizza_cooked = pygame.transform.scale(self.cheese_pizza_cooked, (300, 300))
+        
+        self.pineapple_pizza_cooked=pygame.image.load("pineapple_pizza_cooked.png")
+        self.pineapple_pizza_cooked= pygame.transform.scale(self.pineapple_pizza_cooked, (300, 300))
+        
+        self.pepperoni_pizza_cooked=pygame.image.load("pepperoni_pizza_cooked.png")
+        self.pepperoni_pizza_cooked= pygame.transform.scale(self.pepperoni_pizza_cooked, (300, 300))
+        
+        self.pizza_box=pygame.image.load("pizza_box.png")
+        self.pizza_box = pygame.transform.scale(self.pizza_box, (240, 240))
+        
         self.baking_duration = 30
         self.dough_message_printed = False
         self.dough_added_message_printed = False  
@@ -96,10 +119,19 @@ class Cooking:
                 print("Dough added. Add toppings next.")
                 self.dough_added_message_printed = True  
         elif self.pizza_state == 'Toppings Added':
-            print("Toppings added. Bake the pizza next.")
+            if not self.dough_added_message_printed:
+                print("Toppings added. Bake the pizza next.")
+                self.dough_added_message_printed = True
 
+    def reset(self):
+        """
+        Resets the pizza state 
+        """
+        self.pizza_state='No Dough'
+        self.toppings=[]
+        print("Ready for a new pizza!")
 
-    def cooking_button_click(self, event):
+    def cooking_button_click(self, event, screen):
         """
         Handles the button clicks and updates pizza state accordingly.
         """
@@ -110,6 +142,7 @@ class Cooking:
         for topping, rect in self.toppings_buttons.items():
             if rect.collidepoint(event.pos) and self.pizza_state == 'Dough Added' and topping not in self.toppings:
                 if self.topping_quantities[topping] > 0:
+                    self.pizza_state = 'Toppings Added'
                     self.toppings.append(topping)
                     self.topping_quantities[topping] -= 1
                     print(f"{topping} added to the pizza.")
@@ -122,28 +155,39 @@ class Cooking:
             
         if self.package_button.collidepoint(event.pos) and self.pizza_state == 'Baked':
             self.pizza_state = 'Packaged'
-
             self.toppings = [] 
             print("Pizza is packaged!")
+            self.reset()
 
     def draw(self):
         """
         Draws the cooking state and buttons.
-        """
-        if self.is_baking:
-            elapsed_time = (pygame.time.get_ticks() - self.baking_start_time) / 1000
-            if elapsed_time >= self.baking_duration:
-                self.is_baking = False
-                print("Pizza is done!")
-
+        """     
         self.draw_cooking_buttons()  
-        self.update_game_state()  
-
+        self.update_game_state() 
+        
         font = pygame.font.SysFont('comic sans', 24)
         state_text = font.render(f"Pizza State: {self.pizza_state}", True, (0, 0, 0))
         self.screen.blit(state_text, (10, 10))
+        
+        if self.pizza_state == 'Dough Added':
+            self.screen.blit(self.dough, (250, 4))
+            
+        elif self.pizza_state == 'Toppings Added':
+            if 'Cheese' in self.toppings:
+                self.screen.blit(self.cheese_pizza_raw, (250, 4))
+            elif 'Pineapple' in self.toppings:
+                self.screen.blit(self.pineapple_pizza_raw, (250, 4))
+            elif 'Pepperoni' in self.toppings:
+                self.screen.blit(self.pepperoni_pizza_raw, (250, 4))
+        elif self.pizza_state == 'Baked':
+            if 'Cheese' in self.toppings:
+                self.screen.blit(self.cheese_pizza_cooked, (250, 4))
+            elif 'Pineapple' in self.toppings:
+                self.screen.blit(self.pineapple_pizza_cooked, (250, 4))
+            elif 'Pepperoni' in self.toppings:
+                self.screen.blit(self.pepperoni_pizza_cooked, (250, 4))
 
-        if self.is_baking:
-            remaining_time = max(0, self.baking_duration - (elapsed_time))
-            timer_text = font.render(f"Time Remaining: {int(remaining_time)}s", True, (255, 0, 0))
-            self.screen.blit(timer_text, (10, 40))
+        if self.pizza_state =="No Dough":
+            pass
+    
