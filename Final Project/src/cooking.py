@@ -3,7 +3,7 @@ import pygame
 class Cooking:
     BUTTON_WIDTH = 200
     BUTTON_HEIGHT = 50
-    BUTTON_COLOR = (200, 200, 200)
+    BUTTON_COLOR = (255, 182,193)
     FONT_COLOR = (0, 0, 0)
 
     def __init__(self, button, screen, customer, initial_resources=None):
@@ -220,14 +220,26 @@ class Cooking:
         Handles the purchase of a topping
         """
         if topping == "Buy Cheese":
-            self.topping_quantities["Cheese"] += 5
-            print("Bought 5 Cheese!")
+            if self.customer.budget.money >= 5:
+                self.customer.budget.countMoney(-5)
+                self.topping_quantities["Cheese"] += 5
+                print("Bought 5 Cheese!")
+            else:
+                print("Insufficient budget to buy Cheese.")
         elif topping == "Buy Pineapple":
-            self.topping_quantities["Pineapple"] += 5
-            print("Bought 5 Pineapple!")
+            if self.customer.budget.money >= 5:
+                self.customer.budget.countMoney(-5)
+                self.topping_quantities["Pineapple"] += 5
+                print("Bought 5 Pineapple!")
+            else:
+                print("Insufficient budget to buy Pineapple.")
         elif topping == "Buy Pepperoni":
-            self.topping_quantities["Pepperoni"] += 5
-            print("Bought 5 Pepperoni!")
+            if self.customer.budget.money >= 5:
+                self.customer.budget.countMoney(-5)
+                self.topping_quantities["Pepperoni"] += 5
+                print("Bought 5 Pepperoni!")
+            else:
+                print("Insufficient budget to buy Pepperoni.")
             
     def draw(self):
         """

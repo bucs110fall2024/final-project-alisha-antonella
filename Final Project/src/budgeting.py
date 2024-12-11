@@ -11,7 +11,7 @@ class Budgeting:
         
          self.y = y
         
-         self.money = 0 
+         self.money = 100
         
          self.font = pygame.font.SysFont("Arial", 24) 
         
@@ -30,11 +30,11 @@ class Budgeting:
         Displays the current budget which the user 
         has, in order to buy supplies etc. 
         """
-        money_text = f"Money: ${self.money}"
+        money_text = f"Budget: ${self.money}"
         
-        text_surface = self.font.render(money_text, True, self.color)
-        
-        screen.blit(text_surface, (self.x, self.y))  
+        text_surface = self.font.render(f"Budget: ${self.money}", True, (0, 0, 0))  # Black text
+        text_rect = text_surface.get_rect(center=(screen.get_width() // 2, 30))
+        screen.blit(text_surface, text_rect) 
     
     
     def budgetPrediction(self, average_earnings, time_played):

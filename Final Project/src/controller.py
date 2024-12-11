@@ -32,9 +32,17 @@ class Controller:
         self.button = Button(x=50, y=self.menu.get_rect().bottom + 10)
         self.player = None 
         self.state = "menu"
-        self.background = pygame.image.load("backgroundpic.jpg")
+        
+        self.background = pygame.image.load("pizzasbg.jpg")
         self.background = pygame.transform.scale(self.background, pygame.display.get_window_size())
+        
+        self.game_background = pygame.image.load("gamebackground.jpg")
+        self.game_background = pygame.transform.scale(self.game_background, pygame.display.get_window_size())
+        
         self.music = Music("backgroundmusic.mp3")
+        
+        #self.budget = Budgeting(350, 10) 
+        #self.budget.countMoney(100)
         
     def start_game(self):
         """
@@ -42,9 +50,10 @@ class Controller:
         """
         
         self.state = "game"
-        self.customer = Customer(100, 100, "paper_order.jpg", self.screen)
+        self.budget = Budgeting(x=350, y=20)
+        self.customer = Customer(100, 100, "paper_order.jpg", self.screen, self.budget)
         self.cooking = Cooking(self.button, self.screen, self.customer)
-        self.player = Player(400, 300, "player_image2.jpg", budget=100, scale=(150,150))  
+        self.player = Player(400, 300, "player_image2.jpg", self.budget, scale=(150,150))  
         
         
 
@@ -73,24 +82,26 @@ class Controller:
                     self.cooking.cooking_button_click(event, self.screen)
                     self.cooking.button_click(event)
 
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT]:
-                self.player.x -= 5
-            if keys[pygame.K_RIGHT]:
-                self.player.x += 5
-            if keys[pygame.K_UP]:
-                self.player.y -= 5
-            if keys[pygame.K_DOWN]:
-                self.player.y += 5
-            
+            # Update player's position based on mouse position
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            self.player.x = mouse_x - self.player.rect.width // 2
+            self.player.y = mouse_y - self.player.rect.height // 2
             self.player.rect.topleft = (self.player.x, self.player.y)
+           
+            #self.screen.fill((150, 150, 250))
+            self.screen.blit(self.game_background, (0, 0))
             
-            self.screen.fill((150, 150, 250))
             self.customer.display_order_image()  
             self.cooking.draw()  
+            self.budget.displaysMoney(self.screen)
             self.screen.blit(self.player.image, self.player.rect)  
             self.cooking.update_game_state()
             self.customer.display_order_text()
+            
+            # Display the budget
+            if self.budget.money <= 0:
+                self.state = "menu"  # Quit the game
+            
             pygame.display.flip()
             clock.tick(60)
 

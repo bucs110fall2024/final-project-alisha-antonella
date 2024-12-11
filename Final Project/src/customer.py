@@ -5,7 +5,7 @@ class Customer:
     PIZZA_COST=4
     TIP=3
     
-    def __init__(self, x, y, paper_order, screen):
+    def __init__(self, x, y, paper_order, screen, budget):
          """
          Initializes the costumer object
          Args:
@@ -17,6 +17,7 @@ class Customer:
          self.y = y
          self.screen=screen
          self.image=pygame.image.load("paper_order.jpg")
+         self.budget = budget
          self.image = pygame.transform.scale(self.image, (266, 300))
          self.order_text=""
          self.revenue=0
@@ -24,6 +25,7 @@ class Customer:
          self.font = pygame.font.SysFont('comic sans', 24)
          self.order_list = ["Cheese", "Pepperoni", "Pineapple"]
          self.selected_topping = random.choice(self.order_list)
+         
          
     def display_order_image(self):
          """
