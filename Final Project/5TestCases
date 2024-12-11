@@ -1,0 +1,112 @@
+ATP EXERCISE
+
+# ######
+
+Test Case 1: Player Order Handling, Movement, and Budget Usage
+
+Test Description: Make sure that the player can successfully take an order, move through stations, and use the budget to purchase supplies.
+
+Test Steps:
+Initialize the Player object with starting coordinates
+Call the takeorder method and pass a mock order with the description "Make a pizza".
+Verify that the player's order attribute is set to the received order.
+Check the console output to ensure the order description is printed:
+"Order received: Make a pizza"
+Call the movestations method on the player object to make the player move between stations.
+Call the usebudget method on the player object to attempt purchasing supplies.
+After attempting purchases, check that the player's remaining budget is updated correctly.
+
+
+Expected Outcome: The player shoudl be able to take orders, make orders and use its budget
+
+# ###############
+Test Case 2: Budgeting System
+
+Test Description: Make sure that the Budgeting class correctly tracks and displays the user's money, and decreases based on spending
+
+Test Steps:
+Initialize a Budgeting object with starting coordinates
+Call the countMoney method on the Budgeting object and add 100 units to the money.
+Verify that the money is updated correctly after each call.
+Set up a mock screen using pygame.Surface with size (800, 600) to simulate displaying on a screen.
+Call the displaysMoney method with the mock screen as the argument.
+After all operations, check the value of the money attribute of the Budgeting object.
+
+
+<<<<<<< HEAD
+Expected Outcome: The players money should be updated correct;y using the budgeting object,the displays money method should display the correct amount on the screen
+
+# ###############
+
+Test Case 3: Home Screen Display and Button Interaction
+=======
+Expected Outcome: The players money should be updated correct;y using the budgeting object, and the displays money method should display the correct amount on the screen.
+
+
+# ###############
+Test Case 3: Music system
+>>>>>>> 560bce4c9f4a32166a7d6be3220796b6876b2c4a
+
+Test Description: Make sure that the Music class correctly plays music once the pygame screen appears.
+
+
+Test Steps:
+<<<<<<< HEAD
+Initialize a pygame screen with size (800, 600) to simulate the home screen.
+Create a Home object using the screen and font.
+Call the initial_text method on the Home object to display the home screen text.
+Verify that the title text "Welcome to Our Game" is displayed at the top center of the screen.
+Verify that the instructions text "Press the button to start!!" is displayed below the title.
+Simulate moving the mouse pointer over the button by setting the mouse position to coordinates inside the button's rectangle (e.g., (160, 260)).
+Call the start_button method.
+Simulate a click on the start button by checking for mouse click events at the button's rectangle position.
+Verify that the button responds to the click event 
+
+Expected Outcome: Home class should display the intial game screen, and handle button interaction
+
+# ###############
+
+Test Case 4: Music
+
+Test Description: Make sure that the Music class correctly plays the intended background music once game starts.
+
+Test Steps:
+???
+
+Expected Outcome: ???
+=======
+Initialize the music file 
+pygame.mixer plays music in a loop except if pygame.error occurs then "Error loading music file:" is printed.
+pygame.mixer is used to stop the music and print "Music Stopped.".
+
+Expected Outcome: Music class should play music once the pygame screen pops up
+# ###############
+
+Test Case 4: Customer and order system
+
+Test Description: Make sure that the Customer class correctly displays the topping order and shows a new order once the package button is pressed
+
+Test Steps:
+Initialize a pygame screen with size (800, 600) to simulate the game screen.
+Loads paper_order.jpg image into self.image
+Randomly selects an order from order_list into self.selected_topping
+Displays the selected toppings onto the screen
+
+
+Expected Outcome: Customer class displays the toppings and randomly selects new toppings once the package button is pressed 
+>>>>>>> 560bce4c9f4a32166a7d6be3220796b6876b2c4a
+
+# ###############
+
+Test Case 5: Cooking Button Interactions
+
+Test Description: Make sure that the Cooking class correctly displays the cooking-related buttons (Dough, Toppings, Bake, Package), and that the buttons respond to mouse click events
+
+Test Steps:
+Initialize a pygame screen with size (800, 600) to simulate the game screen.
+Create a pygame.event.Event object to simulate mouse click events.
+Initialize a Cooking object, passing in the button and the screen.
+Call the draw_cooking_buttons method on the Cooking object.
+Verify that all buttons are drawn with the correct color
+
+Expected Outcome: Cooking class displays the cooking-related buttons and responds to mouse click events properly
