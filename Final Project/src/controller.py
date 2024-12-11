@@ -90,8 +90,7 @@ class Controller:
            
             #self.screen.fill((150, 150, 250))
             self.screen.blit(self.game_background, (0, 0))
-            
-            self.customer.display_order_image()  
+            self.customer.display_order_image() 
             self.cooking.draw()  
             self.budget.displaysMoney(self.screen)
             self.screen.blit(self.player.image, self.player.rect)  
