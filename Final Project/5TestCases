@@ -21,7 +21,7 @@ Expected Outcome: The player shoudl be able to take orders, make orders and use 
 # ###############
 Test Case 2: Budgeting System
 
-Test Description: Make sure that the Budgeting class correctly tracks and displays the user's money, calculates earned money, and predicts future earnings based on average earnings and time played.
+Test Description: Make sure that the Budgeting class correctly tracks and displays the user's money.
 
 
 Test Steps:
