@@ -26,23 +26,32 @@ Test Description: Make sure that the Budgeting class correctly tracks and displa
 
 Test Steps:
 Initialize a Budgeting object with starting coordinates
-Call the countMoney method on the Budgeting object and add 50 units to the money.
+Call the countMoney method on the Budgeting object and add 100 units to the money.
 Verify that the money is updated correctly after each call.
 Set up a mock screen using pygame.Surface with size (800, 600) to simulate displaying on a screen.
 Call the displaysMoney method with the mock screen as the argument.
 After all operations, check the value of the money attribute of the Budgeting object.
 
 
+<<<<<<< HEAD
 Expected Outcome: The players money should be updated correct;y using the budgeting object,the displays money method should display the correct amount on the screen
 
 # ###############
 
 Test Case 3: Home Screen Display and Button Interaction
+=======
+Expected Outcome: The players money should be updated correct;y using the budgeting object, and the displays money method should display the correct amount on the screen.
 
-Test Description: Make sure that the Home class correctly displays the home screen with title text, instructions, and a start button. The button should change color when hovered over, and clicking the button should start the game (simulated for the test case).
+
+# ###############
+Test Case 3: Music system
+>>>>>>> 560bce4c9f4a32166a7d6be3220796b6876b2c4a
+
+Test Description: Make sure that the Music class correctly plays music once the pygame screen appears.
 
 
 Test Steps:
+<<<<<<< HEAD
 Initialize a pygame screen with size (800, 600) to simulate the home screen.
 Create a Home object using the screen and font.
 Call the initial_text method on the Home object to display the home screen text.
@@ -65,6 +74,27 @@ Test Steps:
 ???
 
 Expected Outcome: ???
+=======
+Initialize the music file 
+pygame.mixer plays music in a loop except if pygame.error occurs then "Error loading music file:" is printed.
+pygame.mixer is used to stop the music and print "Music Stopped.".
+
+Expected Outcome: Music class should play music once the pygame screen pops up
+# ###############
+
+Test Case 4: Customer and order system
+
+Test Description: Make sure that the Customer class correctly displays the topping order and shows a new order once the package button is pressed
+
+Test Steps:
+Initialize a pygame screen with size (800, 600) to simulate the game screen.
+Loads paper_order.jpg image into self.image
+Randomly selects an order from order_list into self.selected_topping
+Displays the selected toppings onto the screen
+
+
+Expected Outcome: Customer class displays the toppings and randomly selects new toppings once the package button is pressed 
+>>>>>>> 560bce4c9f4a32166a7d6be3220796b6876b2c4a
 
 # ###############
 

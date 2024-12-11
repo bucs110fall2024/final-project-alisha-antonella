@@ -5,6 +5,11 @@ class Cooking:
     BUTTON_HEIGHT = 50
     BUTTON_COLOR = (255, 182,193)
     FONT_COLOR = (0, 0, 0)
+    PINK = (255, 182, 193)
+    RECT_X = 300
+    RECT_Y = 250
+    RECT_WIDTH = 600
+    RECT_HEIGHT = 40
 
     def __init__(self, button, screen, customer, initial_resources=None):
         """
@@ -240,7 +245,10 @@ class Cooking:
                 print("Bought 5 Pepperoni!")
             else:
                 print("Insufficient budget to buy Pepperoni.")
-            
+    
+    def text_box(self):
+        pygame.draw.rect(self.screen, self.PINK, (self.RECT_X, self.RECT_Y, self.RECT_WIDTH, self.RECT_HEIGHT))
+        
     def draw(self):
         """
         Draws the cooking state and buttons.
@@ -248,6 +256,7 @@ class Cooking:
         self.draw_cooking_buttons() 
         self.draw_supplies_button() 
         self.update_game_state() 
+        self.text_box()
         
         font = pygame.font.SysFont('comic sans', 24)
         state_text = font.render(f"Pizza State: {self.pizza_state}", True, (0, 0, 0))
