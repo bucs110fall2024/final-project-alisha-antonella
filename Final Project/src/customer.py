@@ -26,15 +26,6 @@ class Customer:
          self.order_list = ["Cheese", "Pepperoni", "Pineapple"]
          self.selected_topping = random.choice(self.order_list)
          
-         
-    def display_order_image(self):
-         """
-         Displays the customer's order image
-         """
-         if not self.order_fulfilled:
-            self.screen.blit(self.image, (0, 0))
-            if self.order_text:
-                self.render_order_text()
      
     def update_order(self):
         """

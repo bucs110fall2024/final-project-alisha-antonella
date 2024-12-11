@@ -26,51 +26,42 @@ Test Description: Make sure that the Budgeting class correctly tracks and displa
 
 Test Steps:
 Initialize a Budgeting object with starting coordinates
-Call the countMoney method on the Budgeting object and add 50 units to the money.
+Call the countMoney method on the Budgeting object and add 100 units to the money.
 Verify that the money is updated correctly after each call.
 Set up a mock screen using pygame.Surface with size (800, 600) to simulate displaying on a screen.
 Call the displaysMoney method with the mock screen as the argument.
-Call the budgetPrediction method with an average earning of 10 units per time unit and a time played of 5 units.
-Verify that the predicted money is calculated correctly, based on the formula
 After all operations, check the value of the money attribute of the Budgeting object.
 
 
-Expected Outcome: The players money should be updated correct;y using the budgeting object,the displays money method should display the correct amount on the screen, and the budget prediction method should return the correct predicted money
+Expected Outcome: The players money should be updated correct;y using the budgeting object, and the displays money method should display the correct amount on the screen.
 
 
 # ###############
-Test Case 3: Home Screen Display and Button Interaction
+Test Case 3: Music system
 
-Test Description: Make sure that the Home class correctly displays the home screen with title text, instructions, and a start button. The button should change color when hovered over, and clicking the button should start the game (simulated for the test case).
+Test Description: Make sure that the Music class correctly plays music once the pygame screen appears.
 
 
 Test Steps:
-Initialize a pygame screen with size (800, 600) to simulate the home screen.
-Create a Home object using the screen and font.
-Call the initial_text method on the Home object to display the home screen text.
-Verify that the title text "Welcome to Our Game" is displayed at the top center of the screen.
-Verify that the instructions text "Press the button to start!!" is displayed below the title.
-Simulate moving the mouse pointer over the button by setting the mouse position to coordinates inside the button's rectangle (e.g., (160, 260)).
-Call the start_button method.
-Simulate a click on the start button by checking for mouse click events at the button's rectangle position.
-Verify that the button responds to the click event 
+Initialize the music file 
+pygame.mixer plays music in a loop except if pygame.error occurs then "Error loading music file:" is printed.
+pygame.mixer is used to stop the music and print "Music Stopped.".
 
-Expected Outcome: Home class should display the intial game screen, and handle button interaction
+Expected Outcome: Music class should play music once the pygame screen pops up
 # ###############
 
-Test Case 4: Upgrades Button Interactions
+Test Case 4: Customer and order system
 
-Test Description: Make sure that the Upgrades class correctly draws the upgrade buttons for "Better Toppings" and "Faster Cooking," and that the buttons respond to mouse click events appropriately.
+Test Description: Make sure that the Customer class correctly displays the topping order and shows a new order once the package button is pressed
 
 Test Steps:
 Initialize a pygame screen with size (800, 600) to simulate the game screen.
-Create a pygame.event.Event object to simulate mouse click events.
-Initialize an Upgrades object, passing in the button and the screen.
-Call the draw_upgrade_buttons method on the Upgrades object.
-Verify that the buttons "Buy Better Toppings" and "Buy Faster Cooking" are drawn on the screen at the correct positions 
-Simulate a mouse click event on the "Buy Better Toppings" button by setting the mouse position to (150, 125) (which is within the better_toppings button) 
+Loads paper_order.jpg image into self.image
+Randomly selects an order from order_list into self.selected_topping
+Displays the selected toppings onto the screen
 
-Expected Outcome: Upgrades class displays the upgrade buttons and respodns to mouse click events properly 
+
+Expected Outcome: Customer class displays the toppings and randomly selects new toppings once the package button is pressed 
 
 # ###############
 Test Case 5: Cooking Button Interactions
